@@ -7,13 +7,40 @@ import { Sun, RefreshCw, Moon, Search, Clock } from "lucide-react";
 import { motion } from "framer-motion";
 import { fetchWeatherData } from "../Service/WeatherService";
 
+
+interface WeatherData {
+  name: string;
+  main: {
+    temp: number;
+    humidity: number;
+  };
+  weather: {
+    icon: string;
+    description: string;
+  }[];
+  wind: {
+    speed: number;
+  };
+}
+
+interface ForecastItem {
+  dt_txt: string;
+  main: {
+    temp: number;
+  };
+  weather: {
+    icon: string;
+    description: string;
+  }[];
+}
+
 const WeatherApp = () => {
   const [theme, setTheme] = useState("light");
   const [isLoading, setIsLoading] = useState(true);
   const [city, setCity] = useState("Delhi");
   const [query, setQuery] = useState("");
-  const [weatherData, setWeatherData] = useState(null);
-  const [forecastData, setForecastData] = useState([]);
+  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
+  const [forecastData, setForecastData] = useState<ForecastItem[]>([]);
   const [error, setError] = useState("");
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
 
@@ -24,9 +51,18 @@ const WeatherApp = () => {
     setError("");
 
     try {
-      const { weatherJson, forecastJson } = await fetchWeatherData(city);
+      const {
+        weatherJson,
+        forecastJson,
+      }: {
+        weatherJson: WeatherData;
+        forecastJson: { list: ForecastItem[] };
+      } = await fetchWeatherData(city);
+
       setWeatherData(weatherJson);
-      const dailyForecast = forecastJson.list.filter((item, index) => index % 8 === 0);
+      const dailyForecast = forecastJson.list.filter(
+        (item: ForecastItem, index: number) => index % 8 === 0
+      );
       setForecastData(dailyForecast);
     } catch (err) {
       setError("City not found or API error.");
@@ -53,7 +89,10 @@ const WeatherApp = () => {
     setCity(trimmed);
     setQuery("");
 
-    const updatedSearches = [trimmed, ...recentSearches.filter((item) => item !== trimmed)].slice(0, 5);
+    const updatedSearches = [
+      trimmed,
+      ...recentSearches.filter((item) => item !== trimmed),
+    ].slice(0, 5);
     setRecentSearches(updatedSearches);
     localStorage.setItem("recentSearches", JSON.stringify(updatedSearches));
   };
@@ -68,8 +107,6 @@ const WeatherApp = () => {
       ? "bg-white/5 backdrop-blur-lg border border-white/10 shadow-lg text-white"
       : "bg-white/70 backdrop-blur-md border border-gray-200 shadow-xl";
 
-  
-
   const InlineLoader = () => (
     <div className="flex items-center justify-center py-8">
       <motion.div
@@ -79,16 +116,12 @@ const WeatherApp = () => {
         transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
       />
     </div>
-
-
-
   );
-
 
   return (
     <div className={`min-h-screen p-4 transition-colors duration-300 ${bgClasses}`}>
       <div className="max-w-2xl mx-auto">
-        {/* Header */}
+        {/* Navbar */}
         <motion.div
           className="flex justify-between items-center mb-6"
           initial={{ opacity: 0, y: -20 }}
@@ -123,7 +156,7 @@ const WeatherApp = () => {
           </motion.div>
         </motion.div>
 
-        {/* Recent Searches log upto 5 recent searches stored in local host */}
+        {/* Recent Searches */}
         {recentSearches.length > 0 && (
           <motion.div
             className="mb-6"
@@ -165,13 +198,13 @@ const WeatherApp = () => {
           </motion.div>
         )}
 
-        {/* Error display and handling */}
+        {/* Error message */}
         {error && <div className="text-red-500 text-center text-sm mb-4">{error}</div>}
 
-        {/* Lazy loader for search input / redirects to error when failed api call */}
+        {/* Lazy Loader for search */}
         {isLoading && weatherData && <InlineLoader />}
 
-        {/* Weather display card */}
+        {/* Weather display Card */}
         {!isLoading && weatherData && (
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -211,19 +244,15 @@ const WeatherApp = () => {
                 </div>
 
                 <div className="mt-4 grid grid-cols-2 gap-2 text-sm">
-                  <p>
-                    <strong>Humidity:</strong> {weatherData.main.humidity}%
-                  </p>
-                  <p>
-                    <strong>Wind Speed:</strong> {weatherData.wind.speed} km/h
-                  </p>
+                  <p><strong>Humidity:</strong> {weatherData.main.humidity}%</p>
+                  <p><strong>Wind Speed:</strong> {weatherData.wind.speed} km/h</p>
                 </div>
               </CardContent>
             </Card>
           </motion.div>
         )}
 
-        {/* Forecast display card - 5 days forecast is displayed */}
+        {/* Forecast Card with five days data */}
         {!isLoading && forecastData.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
