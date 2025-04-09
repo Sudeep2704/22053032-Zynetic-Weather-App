@@ -1,12 +1,12 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Input } from "../../components/ui/input";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
 import { Sun, RefreshCw, Moon, Search, Clock } from "lucide-react";
 import { motion } from "framer-motion";
 import { fetchWeatherData } from "../Service/WeatherService";
-
+import Image from "next/image";
 
 interface WeatherData {
   name: string;
@@ -46,7 +46,7 @@ const WeatherApp = () => {
 
   const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
 
-  const fetchWeather = async () => {
+  const fetchWeather = useCallback(async () => {
     setIsLoading(true);
     setError("");
 
@@ -65,17 +65,18 @@ const WeatherApp = () => {
       );
       setForecastData(dailyForecast);
     } catch (err) {
+      console.error(err);
       setError("City not found or API error.");
       setWeatherData(null);
       setForecastData([]);
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [city]);
 
   useEffect(() => {
     fetchWeather();
-  }, [city]);
+  }, [fetchWeather]);
 
   useEffect(() => {
     const stored = localStorage.getItem("recentSearches");
@@ -267,7 +268,7 @@ const WeatherApp = () => {
                     <p className="font-medium">
                       {new Date(item.dt_txt).toLocaleDateString("en-US", { weekday: "short" })}
                     </p>
-                    <img
+                    <Image
                       src={`https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
                       alt="Weather Icon"
                       className="w-12 h-12 mx-auto"
