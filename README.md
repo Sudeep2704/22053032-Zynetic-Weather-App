@@ -6,7 +6,7 @@ A modern, responsive Weather App built with **Next.js 14** that allows users to 
 
 
 
----
+
 
 ## 🔧 Tech Stack
 
@@ -19,7 +19,7 @@ A modern, responsive Weather App built with **Next.js 14** that allows users to 
 - **OpenWeatherMap API** – for real-time weather and forecast data
 - **LocalStorage** – for storing recent searches
 
----
+
 
 ## 🚀 Features
 
@@ -31,11 +31,6 @@ A modern, responsive Weather App built with **Next.js 14** that allows users to 
 - 🔄 Refresh button to re-fetch data
 - ✨ Smooth animations via Framer Motion
 
----
-
-
-
----
 
 ## 🌐 API Integration
 
@@ -58,7 +53,7 @@ NEXT_PUBLIC_WEATHER_API_KEY=your_api_key_here
 
 > ⚠️ **Important:** Never expose your API key directly in the code. Use environment variables (`.env.local`) and the `NEXT_PUBLIC_` prefix for secure client-side access in Next.js.
 
----
+
 
 ### 📡 Endpoints Used
 
@@ -76,7 +71,7 @@ The app makes use of the following OpenWeatherMap endpoints:
   https://api.openweathermap.org/data/2.5/forecast?q={city}&appid={API_KEY}&units=metric
   ```
 
----
+
 
 ### ⚙️ Data Fetching
 
@@ -96,14 +91,14 @@ const fetchWeatherData = async (city: string) => {
 - 🔁 Refresh button re-fetches latest data on demand
 - 🔍 Search dynamically queries data using city name
 
----
+
 
 ### 💾 Caching & State
 
 - Uses `LocalStorage` to persist recent search history for quick access
 - Optionally, you can enhance with tools like `SWR` or `React Query` for advanced caching and revalidation
 
----
+
 
 ## 🧩 Folder Structure
 
