@@ -1,4 +1,41 @@
+# 🌦️ Weather App
+
+A modern, responsive Weather App built with **Next.js 14** that allows users to search for any city and view the current weather, 5-day forecast, and additional climate insights in a clean, animated UI.
+
+![Weather App Screenshot](./public/preview.png)
+
+---
+
+## 🔧 Tech Stack
+
+- **Next.js 14 (App Router)**
+- **React 18**
+- **TypeScript**
+- **Framer Motion** – for animations
+- **Lucide React** – for icons
+- **Tailwind CSS / Custom CSS** – for styling
+- **OpenWeatherMap API** – for real-time weather and forecast data
+- **LocalStorage** – for storing recent searches
+
+---
+
+## 🚀 Features
+
+- 🌤️ Real-time weather display (temperature, description, humidity, wind speed)
+- 📅 5-Day weather forecast with icons
+- 🌗 Light/Dark theme toggle
+- 🔍 City-based search functionality
+- 🕒 Recent search history with quick access
+- 🔄 Refresh button to re-fetch data
+- ✨ Smooth animations via Framer Motion
+
+---
+
+## 🧩 Folder Structure
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
 
 ## Getting Started
 
