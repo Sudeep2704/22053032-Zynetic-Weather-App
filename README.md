@@ -33,6 +33,81 @@ A modern, responsive Weather App built with **Next.js 14** that allows users to 
 
 ---
 
+Sure! Here's the **API Integration** section formatted in proper `README.md` Markdown style for your project:
+
+---
+
+## 🌐 API Integration
+
+The Weather App integrates with the **[OpenWeatherMap API](https://openweathermap.org/api)** to retrieve real-time weather conditions and 5-day forecasts based on the user’s selected city.
+
+### 🔑 API Key Setup
+
+To access OpenWeatherMap services, you'll need to obtain a free API key:
+
+1. Sign up at [https://openweathermap.org/](https://openweathermap.org/).
+2. Navigate to your account > **API keys**.
+3. Create a new key or use the default one provided.
+
+Add your API key to a local environment variable file:
+
+```bash
+# .env.local
+NEXT_PUBLIC_WEATHER_API_KEY=your_api_key_here
+```
+
+> ⚠️ **Important:** Never expose your API key directly in the code. Use environment variables (`.env.local`) and the `NEXT_PUBLIC_` prefix for secure client-side access in Next.js.
+
+---
+
+### 📡 Endpoints Used
+
+The app makes use of the following OpenWeatherMap endpoints:
+
+- **Current Weather Data**
+
+  ```
+  https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric
+  ```
+
+- **5-Day / 3-Hour Forecast**
+
+  ```
+  https://api.openweathermap.org/data/2.5/forecast?q={city}&appid={API_KEY}&units=metric
+  ```
+
+---
+
+### ⚙️ Data Fetching
+
+Weather data is fetched using native `fetch()` calls inside React components. Example:
+
+```ts
+const fetchWeatherData = async (city: string) => {
+  const response = await fetch(
+    `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}&units=metric`
+  );
+  const data = await response.json();
+  return data;
+};
+```
+
+- ✅ Error handling included for invalid city input
+- 🔁 Refresh button re-fetches latest data on demand
+- 🔍 Search dynamically queries data using city name
+
+---
+
+### 💾 Caching & State
+
+- Uses `LocalStorage` to persist recent search history for quick access
+- Optionally, you can enhance with tools like `SWR` or `React Query` for advanced caching and revalidation
+
+---
+
+Let me know if you'd like to include additional sections like **rate limits**, **API response format**, or how to mock API calls during testing.
+
+
 ## 🧩 Folder Structure
 
 
