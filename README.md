@@ -2,7 +2,8 @@
 
 A modern, responsive Weather App built with **Next.js 14** that allows users to search for any city and view the current weather, 5-day forecast, and additional climate insights in a clean, animated UI.
 
-<img width="959" alt="image" src="https://github.com/user-attachments/assets/5437cbe9-5581-4770-afa1-be50e08b12e8" />
+<img width="953" alt="image" src="https://github.com/user-attachments/assets/831949de-1e6e-4602-88b9-ed29e20b3d7f" />
+
 
 
 ---
