@@ -33,7 +33,7 @@ A modern, responsive Weather App built with **Next.js 14** that allows users to 
 
 ---
 
-Sure! Here's the **API Integration** section formatted in proper `README.md` Markdown style for your project:
+
 
 ---
 
@@ -46,7 +46,7 @@ The Weather App integrates with the **[OpenWeatherMap API](https://openweatherma
 To access OpenWeatherMap services, you'll need to obtain a free API key:
 
 1. Sign up at [https://openweathermap.org/](https://openweathermap.org/).
-2. Navigate to your account > **API keys**.
+2. Navigate to your account > API keys.
 3. Create a new key or use the default one provided.
 
 Add your API key to a local environment variable file:
@@ -64,13 +64,13 @@ NEXT_PUBLIC_WEATHER_API_KEY=your_api_key_here
 
 The app makes use of the following OpenWeatherMap endpoints:
 
-- **Current Weather Data**
+- Current Weather Data
 
   ```
   https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric
   ```
 
-- **5-Day / 3-Hour Forecast**
+- 5-Day / 3-Hour Forecast
 
   ```
   https://api.openweathermap.org/data/2.5/forecast?q={city}&appid={API_KEY}&units=metric
@@ -104,9 +104,6 @@ const fetchWeatherData = async (city: string) => {
 - Optionally, you can enhance with tools like `SWR` or `React Query` for advanced caching and revalidation
 
 ---
-
-Let me know if you'd like to include additional sections like **rate limits**, **API response format**, or how to mock API calls during testing.
-
 
 ## 🧩 Folder Structure
 
