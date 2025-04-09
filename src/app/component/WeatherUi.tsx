@@ -272,6 +272,8 @@ const WeatherApp = () => {
                       src={`https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
                       alt="Weather Icon"
                       className="w-12 h-12 mx-auto"
+                      width={60}
+                      height={60}
                     />
                     <p>{Math.round(item.main.temp)}°C</p>
                   </Card>
